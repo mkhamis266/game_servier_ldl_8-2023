@@ -73,7 +73,7 @@ $(document).on("click", function (eInfo) {
   smashSound.play();
   hitBox(eInfo.clientX, eInfo.clientY);
   $(fatsElement).addClass("smashed");
-  $(fatsElement).css("backgroundImage", "url('imgs/Layer-5-TEST1_100px.gif')");
+  $(fatsElement).css("backgroundImage", "url('imgs/crashing-fats.gif')");
   $(fatsElement).fadeOut(800);
   score++;
   $(".points").html((score < 10 ? "0" : "") + String(score));
