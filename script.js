@@ -58,14 +58,25 @@ function dropBox() {
   });
 }
 
-$(document).on("click", ".box", function (eInfo) {
-  hitBox(eInfo.clientX, eInfo.clientY);
-  console.log(this);
+$(document).on("click", function (eInfo) {
+  let fatsElement;
+  if (eInfo.target.id == "glovesImage") {
+    fatsElement = [...document.elementsFromPoint(eInfo.clientX, eInfo.clientY)].find((el) => el.classList.contains("box"));
+    if (!fatsElement || fatsElement.classList.contains("smashed")) {
+      return;
+    }
+  } else if (eInfo.target.classList.contains("box") && !eInfo.target.classList.contains("smashed")) {
+    fatsElement = eInfo.target;
+  } else {
+    return;
+  }
   smashSound.play();
-  $(this).css("backgroundImage", "url('imgs/Layer-5-TEST1_100px.gif')");
-  $(this).hide(800);
+  hitBox(eInfo.clientX, eInfo.clientY);
+  $(fatsElement).addClass("smashed");
+  $(fatsElement).css("backgroundImage", "url('imgs/Layer-5-TEST1_100px.gif')");
+  $(fatsElement).fadeOut(1000);
   score++;
-  $(".points").html(score);
+  $(".points").html((score < 10 ? "0" : "") + String(score));
 });
 
 function hitBox(clientX, clientY) {
@@ -97,7 +108,7 @@ function countdown() {
   function tick() {
     var counter = document.getElementById("counter");
     seconds--;
-    counter.innerHTML = (seconds < 10 ? "0" : "") + String(seconds) + "S";
+    counter.innerHTML = (seconds < 10 ? "0" : "") + String(seconds);
     if (seconds > 0) {
       setTimeout(tick, 1000);
       // draw();
@@ -115,7 +126,7 @@ function countdown() {
 
 $(".reset").click(resetGame);
 function resetGame() {
-  score = 0;
+  score = "00";
   $(".points").html(score);
   $(".gloves").css({
     left: "45%",
