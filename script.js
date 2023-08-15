@@ -74,7 +74,7 @@ $(document).on("click", function (eInfo) {
   hitBox(eInfo.clientX, eInfo.clientY);
   $(fatsElement).addClass("smashed");
   $(fatsElement).css("backgroundImage", "url('imgs/Layer-5-TEST1_100px.gif')");
-  $(fatsElement).fadeOut(1000);
+  $(fatsElement).fadeOut(800);
   score++;
   $(".points").html((score < 10 ? "0" : "") + String(score));
 });
